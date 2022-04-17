@@ -1,0 +1,22 @@
+{
+  "name": "online-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiran-trrzs/online-store.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "shiran-trrzs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shiran-trrzs/online-store/issues"
+  },
+  "homepage": "https://github.com/shiran-trrzs/online-store#readme"
+}
