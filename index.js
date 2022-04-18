@@ -1,0 +1,19 @@
+let mysql = require('mysql');
+
+let connection = mysql.createConnection({
+    host     : 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
+    user     : 'bsale_test',
+    password : 'bsale_test',
+    database : 'bsale_test'
+});
+
+
+connection.connect(function(error){
+    if (error) {
+        throw error;
+    } else {
+        console.log('succesful connection');
+    }
+});
+
+connection.end();
