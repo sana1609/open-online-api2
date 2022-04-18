@@ -16,4 +16,13 @@ connection.connect(function(error){
     }
 });
 
+connection.query('SELECT * from product', function(error, result, fields) {
+    if(error)
+    throw error;
+
+    result.forEach(res => {
+        console.log(res);
+    });
+})
+
 connection.end();
