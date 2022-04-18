@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/shiran-trrzs/online-store/issues"
   },
-  "homepage": "https://github.com/shiran-trrzs/online-store#readme"
+  "homepage": "https://github.com/shiran-trrzs/online-store#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }
