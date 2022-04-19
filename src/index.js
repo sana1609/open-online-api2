@@ -33,6 +33,15 @@ setInterval(function () {
 //     database: 'bsale_test'
 //   });
 
+//   function keepAlive() { 
+//     pool.getConnection(function(err, connection){
+//       if(err) { console.error('mysql keepAlive err', err); return; }
+//       console.log('ping db')
+//       connection.ping();     // this is what you want
+//       connection.release();
+//     });
+//   }
+//   setInterval(keepAlive, 60000);
 //   // ... later
 //   pool.query('select 1 + 1', function (error, results, fields) {
 //     if (error) throw error;
@@ -155,13 +164,21 @@ app.delete('/delete/:id', (req, res) => {
 });
 
 // Check connect
-connection.connect(function (error) {
-    if (error) {
-        throw error;
-    } else {
-        console.log('successful connection');
-    }
-});
+
+    connection.connect(function (error) {
+        if (error) {
+            throw error;
+        } else {
+            console.log('successful connection');
+            
+        }
+    });
+
+    connection.ping(function (error) {
+            console.log(error);
+
+    })     
+    connection.release;
 
 // connection.query('SELECT * from product', function(error, result, fields) {
 //     if(error)
