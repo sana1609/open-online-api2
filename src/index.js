@@ -75,6 +75,38 @@ app.get('/product', (req, res) => {
     })
 });
 
+app.get('/category/:id', (req, res) => {
+    const { id } = req.params;
+    const sql = `SELECT * from category WHERE id = ${id}`;
+
+    connection.query(sql, function (error, result) {
+        if (error)
+            throw error;
+
+        if (result.length > 0) {
+            res.json(result);
+        } else {
+            res.send('Not result')
+        };
+    })
+});
+
+app.get('/product/:id', (req, res) => {
+    const { id } = req.params;
+    const sql = `SELECT * from product WHERE id = ${id}`;
+
+    connection.query(sql, function (error, result) {
+        if (error)
+            throw error;
+
+        if (result.length > 0) {
+            res.json(result);
+        } else {
+            res.send('Not result')
+        };
+    })
+});
+
 app.post('/', (req, res) => {
     res.send('')
 });
