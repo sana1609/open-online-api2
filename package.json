@@ -7,6 +7,7 @@
     "test": "test"
   },
   "repository": {
+    "start": "node src/index.js",
     "type": "git",
     "url": "git+https://github.com/shiran-trrzs/online-store.git"
   },
