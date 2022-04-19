@@ -9,16 +9,16 @@ const PORT = process.env.PORT || 3050
 app.use(bodyParser.json());
 
 
-    const connection = mysql.createConnection({
-        host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
-        user: 'bsale_test',
-        password: 'bsale_test',
-        database: 'bsale_test'
-    });
+const connection = mysql.createConnection({
+    host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
+    user: 'bsale_test',
+    password: 'bsale_test',
+    database: 'bsale_test'
+});
 
-    // connection.on('error', function(err) {
-    //     console.log(err.code);
-    //   });
+// connection.on('error', function(err) {
+//     console.log(err.code);
+//   });
 
 
 // Keep alive server
@@ -32,7 +32,7 @@ setInterval(function () {
 //     password: 'bsale_test',
 //     database: 'bsale_test'
 //   });
-  
+
 //   // ... later
 //   pool.query('select 1 + 1', function (error, results, fields) {
 //     if (error) throw error;
@@ -133,14 +133,25 @@ app.post('/add', (req, res) => {
     })
 });
 
+app.put('/update/:id', (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const sql = `UPDATE category SET name = '${name}' WHERE id = ${id}`;
 
-
-app.put('/', (req, res) => {
-    res.send('')
+    connection.query(sql, err => {
+        if (err) throw err;
+        res.send('Category updated!');
+    })
 });
 
-app.delete('/', (req, res) => {
-    res.send('')
+app.delete('/delete/:id', (req, res) => {
+    const { id } = req.params;
+    const sql = `DELETE from category WHERE id = ${id}`;
+
+    connection.query(sql, err => {
+        if (err) throw err;
+        res.send('Category deleted!');
+    })
 });
 
 // Check connect
