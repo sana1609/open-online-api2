@@ -4,10 +4,10 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node src/index.js"
   },
   "repository": {
-    "start": "node src/index.js",
     "type": "git",
     "url": "git+https://github.com/shiran-trrzs/online-store.git"
   },

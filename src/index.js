@@ -174,11 +174,11 @@ app.delete('/delete/:id', (req, res) => {
         }
     });
 
-    connection.ping(function (error) {
-            console.log(error);
+    // connection.ping(function (error) {
+    //         console.log(error);
 
-    })     
-    connection.release;
+    // })     
+    // connection.release;
 
 // connection.query('SELECT * from product', function(error, result, fields) {
 //     if(error)
