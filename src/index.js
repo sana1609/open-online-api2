@@ -107,9 +107,33 @@ app.get('/product/:id', (req, res) => {
     })
 });
 
-app.post('/', (req, res) => {
-    res.send('')
+app.post('/add', (req, res) => {
+    const sql = 'INSERT INTO category SET ?';
+
+    const categoryObj = {
+        name: req.body.name
+    }
+
+    connection.query(sql, categoryObj, err => {
+        if (err) throw err;
+        res.send('Category created!');
+    })
 });
+
+app.post('/add', (req, res) => {
+    const sql = 'INSERT INTO product SET ?';
+
+    const productObj = {
+        name: req.body.name
+    }
+
+    connection.query(sql, productObj, err => {
+        if (err) throw err;
+        res.send('Product created!');
+    })
+});
+
+
 
 app.put('/', (req, res) => {
     res.send('')
