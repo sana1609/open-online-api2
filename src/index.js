@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3050
 
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const connection = mysql.createConnection({
     host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
@@ -22,9 +22,38 @@ const connection = mysql.createConnection({
 
 
 // Keep alive server
-setInterval(function () {
-    connection.query('SELECT 1');
-}, 5000);
+// setInterval(function () {
+//     connection.query('SELECT 1');
+// }, 5000);
+
+app.get('/api/database/status',function(req,res) {
+	var retvalSettingValue = "?";
+    connection.query('SELECT SettingValue FROM your_status_table WHERE SettingKey =\'DatabaseStatus\'', function(err, rows, fields) {	
+    	if (err) {
+			var data = { "Time":"", "DatabaseStatus":"" };
+			data["Time"] = (new Date()).getTime();
+			data["DatabaseStatus"] = "Down";
+			res.json(data); 
+		} else {
+			var dbretval = rows[0].SettingValue;
+			if (dbretval == 1 ) {
+				var data = { "Time":"", "DatabaseStatus":"" };
+				data["Time"] = (new Date()).getTime();
+				data["DatabaseStatus"] = "Up";
+				res.json(data); 
+			} else {
+				var data = { "Time":"", "DatabaseStatus":"" };
+				data["Time"] = (new Date()).getTime();
+				data["DatabaseStatus"] = "Down";
+				res.json(data); 
+			}
+		}
+    });
+
+http.listen(3000,function(){
+	console.log("Connected & Listen to port 3000 at /api ..");
+});
+})
 
 // const pool = mysql.createPool({
 //     host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
@@ -165,14 +194,31 @@ app.delete('/delete/:id', (req, res) => {
 
 // Check connect
 
-    connection.connect(function (error) {
-        if (error) {
-            throw error;
-        } else {
-            console.log('successful connection');
+    // connection.connect(function (error) {
+    //     if (error) {
+    //         throw error;
+    //     } else {
+    //         console.log('successful connection');
             
-        }
-    });
+    //     }
+    // });
+    
+
+    function handleDisconnect() {
+        console.log('handleDisconnect()');
+        connection.destroy();
+        connection = mysql.createConnection(db_config);
+        connection.connect(function(err) {
+            if(err) {
+                console.log('Connection is asleep (time to wake it up): ', err);
+                setTimeout(handleDisconnect, 1000);
+                handleDisconnect();
+            } else {
+                console.log('successful connection');
+            }
+            });
+    
+    }
 
     // connection.ping(function (error) {
     //         console.log(error);
