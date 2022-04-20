@@ -16,71 +16,15 @@ const connection = mysql.createConnection({
     database: 'bsale_test'
 });
 
-// connection.on('error', function(err) {
-//     console.log(err.code);
-//   });
-
-
 // Keep alive server
-// setInterval(function () {
-//     connection.query('SELECT 1');
-// }, 5000);
+setInterval(function () {
+    connection.query('SELECT 1');
+}, 4000);
 
-app.get('/api/database/status',function(req,res) {
-	var retvalSettingValue = "?";
-    connection.query('SELECT SettingValue FROM your_status_table WHERE SettingKey =\'DatabaseStatus\'', function(err, rows, fields) {	
-    	if (err) {
-			var data = { "Time":"", "DatabaseStatus":"" };
-			data["Time"] = (new Date()).getTime();
-			data["DatabaseStatus"] = "Down";
-			res.json(data); 
-		} else {
-			var dbretval = rows[0].SettingValue;
-			if (dbretval == 1 ) {
-				var data = { "Time":"", "DatabaseStatus":"" };
-				data["Time"] = (new Date()).getTime();
-				data["DatabaseStatus"] = "Up";
-				res.json(data); 
-			} else {
-				var data = { "Time":"", "DatabaseStatus":"" };
-				data["Time"] = (new Date()).getTime();
-				data["DatabaseStatus"] = "Down";
-				res.json(data); 
-			}
-		}
-    });
-
-http.listen(3000,function(){
-	console.log("Connected & Listen to port 3000 at /api ..");
-});
-})
-
-// const pool = mysql.createPool({
-//     host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
-//     user: 'bsale_test',
-//     password: 'bsale_test',
-//     database: 'bsale_test'
-//   });
-
-//   function keepAlive() { 
-//     pool.getConnection(function(err, connection){
-//       if(err) { console.error('mysql keepAlive err', err); return; }
-//       console.log('ping db')
-//       connection.ping();     // this is what you want
-//       connection.release();
-//     });
-//   }
-//   setInterval(keepAlive, 60000);
-//   // ... later
-//   pool.query('select 1 + 1', function (error, results, fields) {
-//     if (error) throw error;
-//     console.log('keeping connection');
-//   }
-//   );
 
 //Routes
 app.get('/', (req, res) => {
-    res.send('Welcome')
+    res.send('Welcome to my API')
 });
 
 app.get('/category', (req, res) => {
@@ -192,49 +136,5 @@ app.delete('/delete/:id', (req, res) => {
     })
 });
 
-// Check connect
-
-    // connection.connect(function (error) {
-    //     if (error) {
-    //         throw error;
-    //     } else {
-    //         console.log('successful connection');
-            
-    //     }
-    // });
-    
-
-    function handleDisconnect() {
-        console.log('handleDisconnect()');
-        connection.destroy();
-        connection = mysql.createConnection(db_config);
-        connection.connect(function(err) {
-            if(err) {
-                console.log('Connection is asleep (time to wake it up): ', err);
-                setTimeout(handleDisconnect, 1000);
-                handleDisconnect();
-            } else {
-                console.log('successful connection');
-            }
-            });
-    
-    }
-
-    // connection.ping(function (error) {
-    //         console.log(error);
-
-    // })     
-    // connection.release;
-
-// connection.query('SELECT * from product', function(error, result, fields) {
-//     if(error)
-//     throw error;
-
-//     result.forEach(res => {
-//         console.log(res);
-//     });
-// })
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-// connection.end();
