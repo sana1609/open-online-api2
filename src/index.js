@@ -1,13 +1,14 @@
 const mysql = require('mysql');
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const app = express();
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3050
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 const connection = mysql.createConnection({
     host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
