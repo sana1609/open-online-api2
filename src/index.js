@@ -74,9 +74,9 @@ app.get('/category/:id', (req, res) => {
     })
 });
 
-app.get('/product/:id', (req, res) => {
-    const { id } = req.params;
-    const sql = `SELECT * from product WHERE id = ${id}`;
+app.get('/product/:category', (req, res) => {
+    const { category } = req.params;
+    const sql = `SELECT * FROM product WHERE category = ${category}`;
 
     connection.query(sql, function (error, result) {
         if (error)
