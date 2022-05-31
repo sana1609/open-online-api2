@@ -44,7 +44,7 @@ app.get('/category', (req, res) => {
 });
 
 app.get('/product', (req, res) => {
-    const sql = 'SELECT  * fromproduct';
+    const sql = 'SELECT  * from product';
 
     connection.query(sql, function (error, result) {
         if (error)
